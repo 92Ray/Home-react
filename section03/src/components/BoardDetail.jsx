@@ -9,7 +9,7 @@ const BoardDetail=>()=>{
     const {id} = useParams();
     const state = useContext(BoardStateContext);
     const {onDelete} = useContext(BoardDispatchContext);
-    const targetBoard = state.find((item)=>String(item.id)=== String(id);
+    const targetBoard = state.find((item)=>String(item.id)=== String(id));
 
     const onClickDelete = () => {
         window.alert("정말 게시물을 삭제하시겠습니까?")
@@ -26,16 +26,36 @@ const BoardDetail=>()=>{
                 <span className="info-date">
                     작성일: {new date(targetBoard.createDate).toLocalDateString()}
                 </span>
+                </div>
                 <h2 className="detail-title">{targetBoard.title}</h2>
                 <div className="detail-name">
                     작성자: <Strong>{targetBoard.name}</Strong>
-                </div>
             </div>
         </header>
         
-        
+        <section className="detail-content">
+            {targetBoard.content}
+        </section>
+
+        <footer className="detail-footer">
+            <button className="btn-list" onClick={()=>nav("/")}>
+                목록보기
+            </button>
+
+            <div className="btn-group">
+                <button className="btn-edit" onClick={()=>nav(`/edit/${id}`)}>
+                 수정하기
+                </button>
+                <button className="btn-Delete" onClick={onClickDelete}>
+                    삭제하기
+                </button>
+            </div>
+
+        </footer>
 
     </div>
     
     </>
 }
+
+export default BoardDetail;

@@ -13,3 +13,4 @@ const Board=({id, title, name, createDate})=>{
     
     </>
 }
+export default Board;
