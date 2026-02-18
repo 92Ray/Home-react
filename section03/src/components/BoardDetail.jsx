@@ -9,7 +9,7 @@ const BoardDetail=>()=>{
     const {id} = useParams();
     const state = useContext(BoardStateContext);
     const {onDelete} = useContext(BoardDispatchContext);
-    const targetBoard = state.find((item)=>String(item.id)=== String(id));
+    const targetBoard = state.find((item)=>String(item.id) === String(id));
 
     const onClickDelete = () => {
         window.alert("정말 게시물을 삭제하시겠습니까?")
