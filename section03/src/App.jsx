@@ -3,6 +3,41 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
+import { useRef } from 'react';
+import { createContext } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import New from './components/New'
+import Edit from './components/Edit';
+import NotFound from './components/NotFound';
+import BoardDetail from './components/BoardDetail';
+import Header from './components/Header';
+import Home from './components/Home';
+
+
+const mockData = [
+  {
+    id: 1
+    createdDate : new Date(2026,1,1).getTime();
+    title : "test1",
+    name : "tester1",
+    content : "content1"
+  },
+  {
+    id: 2
+    createdDate : new Date(2026,1,5).getTime();
+    title : "test2",
+    name : "tester2",
+    content : "content2"
+  },
+  {
+    id: 3
+    createdDate : new Date(2026,1,10).getTime();
+    title : "test3",
+    name : "tester3",
+    content : "content3"
+  },
+]
+
 function App() {
   const [count, setCount] = useState(0)
 
