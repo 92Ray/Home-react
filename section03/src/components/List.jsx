@@ -3,6 +3,7 @@ import Board from "./Board";
 
 const List = ({state})=>{
     
+    const nav = useNavigate
 
     return<>
     <div className="board-container">
@@ -21,9 +22,23 @@ const List = ({state})=>{
                     <th>날짜</th>
                 </tr>
             </thead>
+
+            <tbody>
+                {state.length > 0 ? (
+                    state.map((item)=><Board key={Number(item.id)} {...item} />)
+                ) : (
+                    <tr>
+                        <td colSpan="4" style={{ padding: "50px" , color: "#999"}}>
+                            등록된 게시글이 없습니다.
+                        </td>
+                    </tr>
+                )}
+
+            </tbody>
         </table>
 
     </div>
     
     </>
 }
+export default List;
