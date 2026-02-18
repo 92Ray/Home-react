@@ -36,33 +36,58 @@ const mockData = [
     name : "tester3",
     content : "content3"
   },
-]
+];
+
+export const BoardStateContext = createContext();
+export const BoardDispatchContext = createContext();
+//useReducer
+function reducer(state, action) {
+  switch (action.type){
+    case "CREATE":
+      return [action.data, ...state];
+      case "UPDATE":
+        return state.map((item)=>{
+          item.id === action.id ? action.data : item
+        });
+        case "DELETE":
+          return state.filter((item)=>String(item.id) !== String(action.id));
+          default:
+            return state;
+  }
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useReducer(useReducer, mockData);
+  const idRef = useRef(4);
+  const onCreate = (title, name, content)=>{
+    const newBoard = {
+      id:idRef.current++,
+      title,
+      name,
+      content,
+      createDate
+    }
+    dispatchEvent({type:"UPDATE", data:newBoard});
+  }
+
+  const onDelete = (id) =>{
+    dispatchEvent({type:"DELETE", id});
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <BoardStateContext.Provider value={state}>
+    <BoardDispatchContext.Provider value={{onCreate, onUpdate, onDelete}}>
+      <Header/>
+      <Routes>
+        <Route path='/' element={<Home />/}
+        <Route path='/new' element={<New />/}
+        <Route path='/BoardDetail/:id' element={<BoardDetail />/}
+        <Route path='/edit/:no' element={<Edit />/}
+        <Route path='*' element={<NotFound />/}
+      </Routes> 
+      </BoardStateContext.Provider>
+      </BoardDispatchContext.Provider>
     </>
   )
 }
